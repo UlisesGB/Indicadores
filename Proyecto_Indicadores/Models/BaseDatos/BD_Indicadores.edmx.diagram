@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9de9dbeae9d647e983b5b8d1a0845a88" Name="Diagram1">
+        <EntityTypeShape EntityType="BD_IndicadoresModel.TB_Catalogo" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_IndicadoresModel.TB_Estado" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_IndicadoresModel.TB_Indicador" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_IndicadoresModel.TB_IndicadorPosvalor" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_IndicadoresModel.TB_Metadata" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_IndicadoresModel.TB_Periodo" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_IndicadoresModel.TB_Posvalor" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_IndicadoresModel.TB_UnidadMedida" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_IndicadoresModel.V_SelectIndicadores" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_IndicadoresModel.V_SelectMetadata" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="BD_IndicadoresModel.FK_Catalogo_Indicador" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_IndicadoresModel.FK_Estado_Indicador" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_IndicadoresModel.FK_Indicador_IndicadorPosvalor" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_IndicadoresModel.FK_Periodo_Indicador" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_IndicadoresModel.FK_Unidad_Indicador" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_IndicadoresModel.FK_Posvalor_IndicadorPosvalor" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_IndicadoresModel.FK_Posvalor_Metadata" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

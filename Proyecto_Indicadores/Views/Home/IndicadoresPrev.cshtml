@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Banco Central</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Formatos/Formatos.css" rel="stylesheet" />
+    <script src="~/scripts/jquery-3.0.0.js"></script>
+    <script src="~/scripts/popper.js"></script>
+    <script src="~/scripts/bootstrap.js"></script>
+
+    <div id="EncabezadoPrincipal">
+
+        <img align="left" src="https://www.bccr.fi.cr/_catalogs/masterpage/Backup%20Master/BCCR%20Secundaria/images/bccr5.png" alt="Logo" style="margin-left: 5px;" />
+
+        <div id="DivEncabezado">
+
+            <h1 id="Titulo">Módulo de Manejo de Indicadores</h1>
+        </div>
+
+
+        </div>
+</head>
+<body>
+    <hr id="BarritaSeparadora" />
+
+
+    <div id="DivCuerpo">
+
+        <div id="DivBarraOpciones">
+
+            <ul class="list-group">
+                <li class="list-group-item" style="text-decoration:none;">@Html.ActionLink("Indicadores", "IndicadoresPrev")</li>
+                <li class="list-group-item">Unidades de Medida</li>
+                <li class="list-group-item">Metadatas</li>
+                <li class="list-group-item">Posvalores</li>
+            </ul>
+
+        </div>
+
+       
+
+    </div>
+
+
+    <div>
+    </div>
+    <div id="Footer">
+        <p id="FooterTexto">
+            Modulo de Manejo de Indicadores Banco Central de Costa Rica <br />
+            Diseñado por Grupo Programación Avanzada Universidad Americana <br />
+            II Cuatrimestre 2018
+        </p>
+    </div>
+</body>
+</html>

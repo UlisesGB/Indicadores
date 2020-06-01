@@ -1,0 +1,46 @@
+﻿@using Proyecto_Indicadores.Models.BaseDatos
+
+@model IEnumerable<TB_Catalogo>
+
+@{
+    ViewBag.Title = "ListarCatalogos";
+    WebGrid wg_Catalogos = new WebGrid(Model,rowsPerPage:2);
+}
+
+
+@*CON EL WEBGRID......NO SE COMO HACER EL EDIT Y DELETE CON ESTE :V*@
+<div class="container">
+    @wg_Catalogos.GetHtml(tableStyle: "table table-responsive table-striped table-hover")
+</div>
+
+
+<hr />
+<hr />
+@* CON ESTA SI SE PUEDE USAR EL EDIT Y DELETE FACILMENTE*@
+<div class="container">
+
+    <table class="table table-responsive table-striped table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.IdCatalogo)</th>
+            <th>@Html.DisplayNameFor(model => model.Prefijo)</th>
+            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var registros in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => registros.IdCatalogo) </td>
+                <td>@Html.DisplayFor(model => registros.Prefijo)</td>
+                <td>@Html.DisplayFor(model => registros.Descripcion)</td>
+                <td>@Html.ActionLink("Editar", "EditarCatalogo", new { @style = "text-decoration:none" })</td>
+                <td>@Html.ActionLink("Eliminar", "ElmininarCatalogo", new { @style = "text-decoration:none" })</td>
+            </tr>
+        }
+
+
+    </table>
+</div>
+<script src="~/scripts/jquery-3.0.0.min.js"></script>
+<script src="~/scripts/bootstrap.bundle.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />

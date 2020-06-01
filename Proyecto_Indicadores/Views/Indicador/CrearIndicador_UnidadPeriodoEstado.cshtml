@@ -1,0 +1,54 @@
+﻿@using Proyecto_Indicadores.Models;
+@using GridMvc.Html;
+
+@model CargarDropDownList
+
+@{
+    ViewBag.Title = "Crear Indicador";
+    Layout = "~/Views/Shared/_IndicadoresLayout.cshtml";
+}
+
+<div class="row container-fluid">
+
+    <div class="col-md">
+        <div class="d-flex row justify-content-center" style="height:300px">
+
+
+            <div class="col-3 justify-content-center align-content-center">
+                <label class="my-label">Estado</label>
+                <br />
+                @Html.DropDownList("Estado", Model.listaEstados, "Elegir Estado", new { @id = "ddlEstado", @class = "dropdown" })
+            </div>
+            <div class="col-3">
+                <label class="my-label">Periodo</label>
+                <br />
+                @Html.DropDownList("Periodo", Model.listaPeriodos, "Elegir Periodo", new { @id = "ddlPeriodo", @class = "btn btn-outline-secondary" })
+            </div>
+            <div class="col-3 text-center">
+                <label class="my-label">Unidad de Medida</label>
+                <br />
+                @Html.DropDownList("Unidad de Medida", Model.listaUnidades, "Elegir Unidad de Medida", new { @id = "ddlUnidad", @class = "btn btn-outline-primary" })
+            </div>
+
+
+
+
+
+            <div class="col-12 align-self-end text-center">
+                <label class="my-label">Vista Previa:</label>
+                <label class="my-label" id="lblVistaPrevia"></label>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row container-fluid align-bottom justify-content-end">
+    <div class="my-btn">
+        <input type="button" value="Atras" class="btn btn-outline-info" />
+    </div>
+    <div class="my-btn">
+        <input type="button" value="Siguiente" class="btn btn-outline-success" />
+    </div>
+</div>
+

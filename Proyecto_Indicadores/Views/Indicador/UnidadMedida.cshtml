@@ -1,0 +1,16 @@
+﻿@model Proyecto_Indicadores.Models.BaseDatos.TB_UnidadMedida
+
+@{
+    ViewBag.Title = "UnidadMedidaConsulta";
+    Layout = null;
+}
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.IdUnidad, "Unidad Medida")
+    <div class="col-md-10">
+        @Html.DropDownListFor(m => m.IdUnidad, (SelectList)ViewBag.ddlUnidad)
+        @Html.ValidationMessageFor(model => model.IdUnidad, "", new { @class = "text-danger" })
+    </div>
+</div>
+

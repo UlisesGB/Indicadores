@@ -1,0 +1,59 @@
+﻿@model Proyecto_Indicadores.Models.BaseDatos.TB_Metadata
+
+@{
+    ViewBag.Title = "Crear/Editar Metadatas";
+    Layout = "~/Views/Shared/_IndicadoresLayout.cshtml";
+    if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <script type='text/javascript'>alert('@ViewBag.Message');</script>
+    }
+}
+<script src="~/scripts/metadata.js"></script>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()    
+    <div id="DivCuerpo" class="form-horizontal" style="margin-left:30%">              
+        <hr style="width:80%; margin-left:0%"/>
+        <h2>Crear/Editar Metadatas</h2> 
+        <div class="card col-lg-12 col-md-10 col-sm-6" style="background-color: #ededed; width:80%">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <br/>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.IdMetadata, new { htmlAttributes = new { @class = "form-control", @id = "txtId" } })
+                    @Html.ValidationMessageFor(model => model.IdMetadata, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @style = "width:60%", @id = "txtNombre" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2", @style = "width:300%" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", @style = "width:100%", @id = "txtDescripcion" } })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Prefijo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Prefijo, new { htmlAttributes = new { @class = "form-control", @style = "width:20%", @placeholder = "Ej: TC_", @maxlength = "3", @id = "txtPrefijo" } })
+                    @Html.ValidationMessageFor(model => model.Prefijo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <br/>
+                    <input type="submit" id="btnSaveMetadata" onclick="SaveMetadaClick();"  value="Guardar Metadata" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

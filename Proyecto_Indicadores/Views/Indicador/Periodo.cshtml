@@ -1,0 +1,15 @@
+﻿@model Proyecto_Indicadores.Models.BaseDatos.TB_Periodo
+
+@{
+    ViewBag.Title = "PeriodoConsulta";
+    Layout = null;
+}
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.IdPeriodo, "Periodicidad")
+    <div class="col-md-10">
+        @Html.DropDownListFor(m => m.IdPeriodo, (SelectList)ViewBag.ddlPeriodo)
+        @Html.ValidationMessageFor(model => model.IdPeriodo, "", new { @class = "text-danger" })
+    </div>
+</div>

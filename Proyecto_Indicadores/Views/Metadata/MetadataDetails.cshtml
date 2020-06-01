@@ -1,0 +1,26 @@
+﻿@model List<Proyecto_Indicadores.Models.Posvalor>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Pos-Valores";
+    Layout = "~/Views/Shared/_IndicadoresLayout.cshtml";
+}
+
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<script src="~/scripts/gridmvc.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/scripts/bootstrap.js"></script>
+
+<div id="DivCuerpo" class="container col-lg-12 col-md-10 col-sm-6">    
+
+    <div id="DivConsulta" style="margin-left:5%" class="container col-lg-12 col-md-10 col-sm-6">
+        <h1 class="Titulos">Registros: @ViewBag.Title</h1>
+        @Html.Grid(Model).Columns(Columns =>
+       {
+           Columns.Add(c => c.IdPosvalor).Titled("Id PosValor").Filterable(true);
+           Columns.Add(c => c.Valor).Titled("Valor").Filterable(true);
+           Columns.Add(c => c.Descripcion).Titled("Descripcion").Filterable(true);
+
+       }).WithPaging(5).Sortable(true)
+    </div>
+</div>
+

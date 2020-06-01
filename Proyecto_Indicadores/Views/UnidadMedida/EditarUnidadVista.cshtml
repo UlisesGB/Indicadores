@@ -1,0 +1,57 @@
+﻿@model Proyecto_Indicadores.Models.UnidadMedida
+@{
+
+    if (!string.IsNullOrEmpty(ViewBag.msg))
+    {
+
+        <script type="text/javascript">alert('@ViewBag.msg');</script>
+
+
+    }
+    ViewBag.Title = "Crear Unidades de Medida";
+    Layout = "~/Views/Shared/_IndicadoresLayout.cshtml";
+}
+
+
+<div id="DivCuerpo" class="form-horizontal" style="margin-left:30%">
+
+
+    <form action="" method="post">
+
+
+        <h1 class="EncabezadosForms" style="text-align:left">Crear nueva unidad de Medida </h1>
+
+        <div class="card" style="background-color: #ededed; width:60%">
+
+            <div class="card-body">
+
+                <p class="Indicaciones">Por favor ingrese la información solicitada:</p>
+
+                <div class="divIngresoDatos">
+
+
+                    <label for="txtSiglas" class="Labels"> Siglas: </label>
+                    <input type="text" maxlength="3" class="form-control" name="txtSiglas" value= placeholder="Ejemplo: USD" style="width:130px; text-transform:uppercase" />
+
+                    <label for="txtDescripcion" class="Labels" style="margin-top:25px"> Descripcion: </label>
+                    <input type="text" class="form-control" name="txtDescripcion" value=@Model.Descripcion style="width:100%" />
+
+
+                    <input type="submit" name="Guardar" value="Crear Unidad de Medida" class="btn btn-primary" style="margin-top:25px" />
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </form>
+
+
+</div>
+
+
+
+
+

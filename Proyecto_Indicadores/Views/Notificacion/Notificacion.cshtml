@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Notificacion";
+    Layout = "~/Views/Shared/_IndicadoresLayout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <div>
+
+        <div id="DivCuerpo" class="form-horizontal" style="margin-left:15%; height:350px">
+
+            <div style="margin-top: 50px">
+
+                <img style="width:65px; height:65px" id="Fail" src="~/Content/Img/Fail.png" />
+
+                <img style="width:65px; height:65px" id="Sucess" src="~/Content/Img/Sucess.png" />
+
+                <script>
+
+                if (@ViewBag.bandera == true) {
+
+                    document.getElementById("Fail").style.visibility = "hidden"
+
+                }
+                else {
+                    document.getElementById("Sucess").style.visibility = "hidden"
+                }
+
+                </script>
+
+                <label> @ViewBag.mensaje </label>
+
+                <hr style="visibility: hidden" />
+
+                <input style="margin-left: 45%; margin-bottom: 5%" type="button" value="Aceptar" class="btn btn-primary" onclick="location.href='<%: Url.Action(@ViewBag.vista, @ViewBag.controlador ) %>'" />
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
+

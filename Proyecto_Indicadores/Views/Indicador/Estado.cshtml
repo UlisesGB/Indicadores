@@ -1,0 +1,15 @@
+﻿@model Proyecto_Indicadores.Models.BaseDatos.TB_Estado
+
+@{
+    ViewBag.Title = "EstaadoConsulta";
+    Layout = null;
+}
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.IdEstado, "Estado")
+    <div class="col-md-10">
+        @Html.DropDownListFor(m => m.IdEstado, (SelectList)ViewBag.ddlEstado)
+        @Html.ValidationMessageFor(model => model.IdEstado, "", new { @class = "text-danger" })
+    </div>
+</div>

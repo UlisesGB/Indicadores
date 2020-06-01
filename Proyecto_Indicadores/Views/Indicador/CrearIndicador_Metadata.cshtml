@@ -1,0 +1,46 @@
+﻿@using Proyecto_Indicadores.Models;
+@using GridMvc.Html;
+
+@model  List<MostrarIndicador>
+
+@{
+    ViewBag.Title = "Crear Indicador";
+    Layout = "~/Views/Shared/_IndicadoresLayout.cshtml";
+}
+
+<div class="row container-fluid">
+
+    <div class="col-sm-12 col-md-7" style="height:300px">
+        <div class="d-flex row justify-content-center align-items-center" style="height:100%">
+            <form>
+                <div class="form-group">
+                    <label for="txtCatagolo" class="my-label">Cuenta Catalogo</label>
+                    <input type="text" id="txtCatagolo" placeholder="Nueva Cuenta Catalogo" class="form-control" maxlength="15" />
+                </div>
+            </form>
+
+            <div class="col-12 align-self-end  text-center">
+                <label class="my-label">Vista Previa:</label>
+                <label class="my-label" id="lblVistaPrevia"></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12  col-md-5" style="height:300px">
+        <h4 class="text-black-50">Lista de Cuentas Catalogo</h4>
+
+        @Html.Grid(Model).Columns(column =>
+   {
+       column.Add(model => model.metadata).Titled("Posvalor").Sortable(true).Filterable(true);}).WithPaging(5).Sortable(true).Selectable(true)
+    </div>
+</div>
+
+<div class="row container-fluid align-bottom justify-content-end" style="margin-top:20px">
+    <div class="my-btn">
+        <input type="button" value="Cancelar" class="btn btn-outline-danger">
+    </div>
+    <div class="my-btn">
+        <input type="button" value="Siguiente" class="btn btn-outline-success">
+    </div>
+</div>
+

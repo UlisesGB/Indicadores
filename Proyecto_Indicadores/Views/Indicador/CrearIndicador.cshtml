@@ -1,0 +1,75 @@
+﻿@using Proyecto_Indicadores.Models;
+
+@model CargarDropDown
+
+@{
+    ViewBag.Title = "Crear Indicador";
+    Layout = "~/Views/Shared/_IndicadoresLayout.cshtml";
+    string[] arrSeleccion = new string[4];
+}
+
+<script type="text/javascript">
+
+    function vistaPrevia() {
+        document.getElementById("lblVistaPrevia").textContent =
+                  document.getElementById("ddlCatalogo").options[document.getElementById("ddlCatalogo").selectedIndex].text +
+            "." + document.getElementById("ddlEstado").options[document.getElementById("ddlEstado").selectedIndex].text +
+            "." + document.getElementById("ddlPeriodo").options[document.getElementById("ddlPeriodo").selectedIndex].text +
+            "." + document.getElementById("ddlUnidad").options[document.getElementById("ddlUnidad").selectedIndex].text;
+        guardarSeleccion();
+    }
+
+    function guardarSeleccion() {
+        document.cookie = "seleccion =" + document.getElementById("lblVistaPrevia").textContent + ";" + Date(0, 0, 0, 2, 0, 0, 0);
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div id="DivCuerpo" class="form-horizontal" style="margin-left:15%">
+        <h1 class="Titulos" style="text-align:center"> Crear Indicador</h1>
+
+        <div class="card" style="background-color: #ededed; width:70%; height: 50%; margin-left: 15%">
+
+            <div class="card-body">
+
+                <label> Para crear el indicador seleccione por favor los valores: Catalogo, Estado, Periodicidad y Unidad de Medida respectivamente.</label>
+
+                <div style="float:left; margin-left:20%; margin-top: 2%">
+
+
+                    @Html.DropDownList("Catalogo", Model.listaCatalogos, new { @id = "ddlCatalogo", @class = "dropdown", @onchange = "vistaPrevia()" })
+                </div>
+
+                <div style="float:left; margin-left:15px; margin-top: 2%">
+                    @Html.DropDownList("Estado", Model.listaEstados, new { @id = "ddlEstado", @class = "dropdown", @onchange = "vistaPrevia()" })
+                </div>
+
+                <div style="float:left; margin-left:15px; margin-top: 2%">
+                    @Html.DropDownList("Periodo", Model.listaPeriodos, new { @id = "ddlPeriodo", @class = "dropdown", @onchange = "vistaPrevia()" })
+                </div>
+
+                <div style="float:left; margin-left:15px; margin-top: 2%">
+                    @Html.DropDownList("Unidad", Model.listaUnidades, new { @id = "ddlUnidad", @class = "dropdown", @onchange = "vistaPrevia()" })
+                </div>
+
+                <input type="submit" name="Guardar" value="Continuar y agregar Pos Valores" class="btn btn-primary" style="margin-top:50px; margin-left: 30%"
+                       onclick="guardarSeleccion()"
+                       formaction="@Url.Action("CrearIndicador_Posvalores", "Indicador", arrSeleccion)"
+                       formmethod="post" />
+            </div>
+        </div>
+        <br />
+        <div>
+            <label class="text-black-50" style="margin-left: 35%">Vista Previa:</label>
+            <label class="text-black-50" id="lblVistaPrevia">
+                <script>
+                    vistaPrevia();
+                </script>
+            </label>
+
+        </div>
+
+    </div>
+}

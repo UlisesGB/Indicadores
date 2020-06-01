@@ -1,0 +1,154 @@
+﻿body {
+}
+
+
+#EncabezadoPrincipal {
+    width: 90%;
+    height: 70px;
+    background-color: white;
+    margin-left: 4%;
+    margin-top: 2%;
+}
+
+#DivEncabezado {
+    width: 90%;
+    height: 70px;
+    margin-left: 15%;
+    border: 1px solid white;
+}
+
+#Titulo {
+    margin-left: 15px;
+    margin-top: 35px;
+    font-family: Calibri;
+    font-size: 30px;
+    color: #0a3e64;
+}
+
+#BarritaSeparadora {
+    width: 90%;
+    border: 2px solid #0a3e64;
+    margin-top: 5%;
+    margin-left: 4%;
+    margin-right: 10%;
+}
+
+#DivCuerpo {
+    width: 70%;
+    height: 430px;
+}
+
+#DivBarraOpciones {
+    float: left;
+    width: 15%;
+    margin-left: 20px;
+    margin-top: 50px;
+}
+
+#DivMensajeBienvenida {
+    width: 100%;
+    height: 450px;
+    float: left;
+}
+
+#ImagenBanco {
+    position: relative;
+    bottom: 0px;
+    display: block;
+    margin: auto;
+}
+
+#Footer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    bottom: 0%;
+}
+
+#FooterTexto {
+    font-family: Calibri;
+    font-size: 15px;
+    color: black;
+    text-align: center;
+    opacity: 0.5;
+}
+
+#DivConsulta {
+    float: left;
+    width: 95%;
+    height: 450px;
+}
+
+.Titulos {
+    font-family: Calibri;
+    font-size: 25px;
+    color: #0a3e64;
+    text-align: center;
+}
+
+#DivBarraNavegacion {
+    width: 100%;
+    float: left;
+    height: 50px;
+}
+
+
+
+.TextoBarraNavegacion {
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    font-family: Calibri;
+    font-size: 15px;
+}
+
+.DivCentrado {
+    width: 25%;
+    height: 450px;
+    float: left;
+}
+
+.divIngresoDatos {
+    width: 450px;
+    float: left;
+    height: auto;
+    text-align: left;
+    margin-left: 80px;
+}
+
+.Labels {
+    font-family: Calibri;
+    font-size: 20px;
+    color: black;
+    opacity: 0.75;
+}
+
+.EncabezadosForms {
+    font-family: Calibri;
+    font-size: 25px;
+    color: #0a3e64;
+    text-align: center;
+}
+
+.Indicaciones Forms {
+    font-family: Calibri;
+    font-size: 15px;
+    color: #0a3e64;
+    text-align: left;
+}
+
+.my-label {
+    color: #818181;
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.my-text {
+    background-color: #DFDFDF;
+    text-align: start;
+}
+
+.my-btn {
+    margin-right: 9px;
+}
+

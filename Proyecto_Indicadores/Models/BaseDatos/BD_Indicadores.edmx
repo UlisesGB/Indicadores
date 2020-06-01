@@ -1,0 +1,602 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BD_IndicadoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TB_Catalogo">
+          <Key>
+            <PropertyRef Name="IdCatalogo" />
+          </Key>
+          <Property Name="IdCatalogo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prefijo" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="35" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sigla" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="35" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_Indicador">
+          <Key>
+            <PropertyRef Name="IdIndicador" />
+          </Key>
+          <Property Name="IdIndicador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCatalogo" Type="int" Nullable="false" />
+          <Property Name="IdUnidad" Type="int" Nullable="false" />
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_IndicadorPosvalor">
+          <Key>
+            <PropertyRef Name="IdIndiPos" />
+          </Key>
+          <Property Name="IdIndiPos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdIndicador" Type="int" Nullable="false" />
+          <Property Name="IdPosvalor" Type="int" Nullable="false" />
+          <Property Name="Orden" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_Metadata">
+          <Key>
+            <PropertyRef Name="IdMetadata" />
+          </Key>
+          <Property Name="IdMetadata" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Prefijo" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_Periodo">
+          <Key>
+            <PropertyRef Name="IdPeriodo" />
+          </Key>
+          <Property Name="IdPeriodo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Siglas" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_Posvalor">
+          <Key>
+            <PropertyRef Name="IdPosvalor" />
+          </Key>
+          <Property Name="IdPosvalor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Valor" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdMetadata" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_UnidadMedida">
+          <Key>
+            <PropertyRef Name="IdUnidad" />
+          </Key>
+          <Property Name="IdUnidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Siglas" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'BD_Indicadores.dbo.V_SelectIndicadores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="V_SelectIndicadores">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Prefijo" />
+            <PropertyRef Name="Estado" />
+            <PropertyRef Name="Periodo" />
+            <PropertyRef Name="Moneda" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Prefijo" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="Estado" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Periodo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Moneda" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'BD_Indicadores.dbo.V_SelectMetadata' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="V_SelectMetadata">
+          <Key>
+            <PropertyRef Name="Indicador" />
+            <PropertyRef Name="Metadata" />
+            <PropertyRef Name="Posvalor" />
+          </Key>
+          <Property Name="Indicador" Type="int" Nullable="false" />
+          <Property Name="Metadata" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Posvalor" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Catalogo_Indicador">
+          <End Role="TB_Catalogo" Type="Self.TB_Catalogo" Multiplicity="1" />
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Catalogo">
+              <PropertyRef Name="IdCatalogo" />
+            </Principal>
+            <Dependent Role="TB_Indicador">
+              <PropertyRef Name="IdCatalogo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estado_Indicador">
+          <End Role="TB_Estado" Type="Self.TB_Estado" Multiplicity="1" />
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="TB_Indicador">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Indicador_IndicadorPosvalor">
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="1" />
+          <End Role="TB_IndicadorPosvalor" Type="Self.TB_IndicadorPosvalor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Indicador">
+              <PropertyRef Name="IdIndicador" />
+            </Principal>
+            <Dependent Role="TB_IndicadorPosvalor">
+              <PropertyRef Name="IdIndicador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Periodo_Indicador">
+          <End Role="TB_Periodo" Type="Self.TB_Periodo" Multiplicity="1" />
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Periodo">
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="TB_Indicador">
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posvalor_IndicadorPosvalor">
+          <End Role="TB_Posvalor" Type="Self.TB_Posvalor" Multiplicity="1" />
+          <End Role="TB_IndicadorPosvalor" Type="Self.TB_IndicadorPosvalor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Posvalor">
+              <PropertyRef Name="IdPosvalor" />
+            </Principal>
+            <Dependent Role="TB_IndicadorPosvalor">
+              <PropertyRef Name="IdPosvalor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posvalor_Metadata">
+          <End Role="TB_Metadata" Type="Self.TB_Metadata" Multiplicity="1" />
+          <End Role="TB_Posvalor" Type="Self.TB_Posvalor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Metadata">
+              <PropertyRef Name="IdMetadata" />
+            </Principal>
+            <Dependent Role="TB_Posvalor">
+              <PropertyRef Name="IdMetadata" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unidad_Indicador">
+          <End Role="TB_UnidadMedida" Type="Self.TB_UnidadMedida" Multiplicity="1" />
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_UnidadMedida">
+              <PropertyRef Name="IdUnidad" />
+            </Principal>
+            <Dependent Role="TB_Indicador">
+              <PropertyRef Name="IdUnidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_IndicadoresModelStoreContainer">
+          <EntitySet Name="TB_Catalogo" EntityType="Self.TB_Catalogo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_Estado" EntityType="Self.TB_Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_Indicador" EntityType="Self.TB_Indicador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_IndicadorPosvalor" EntityType="Self.TB_IndicadorPosvalor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_Metadata" EntityType="Self.TB_Metadata" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_Periodo" EntityType="Self.TB_Periodo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_Posvalor" EntityType="Self.TB_Posvalor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_UnidadMedida" EntityType="Self.TB_UnidadMedida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_SelectIndicadores" EntityType="Self.V_SelectIndicadores" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_SelectIndicadores].[Id] AS [Id], 
+    [V_SelectIndicadores].[Prefijo] AS [Prefijo], 
+    [V_SelectIndicadores].[Estado] AS [Estado], 
+    [V_SelectIndicadores].[Periodo] AS [Periodo], 
+    [V_SelectIndicadores].[Moneda] AS [Moneda]
+    FROM [dbo].[V_SelectIndicadores] AS [V_SelectIndicadores]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_SelectMetadata" EntityType="Self.V_SelectMetadata" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_SelectMetadata].[Indicador] AS [Indicador], 
+    [V_SelectMetadata].[Metadata] AS [Metadata], 
+    [V_SelectMetadata].[Posvalor] AS [Posvalor]
+    FROM [dbo].[V_SelectMetadata] AS [V_SelectMetadata]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Catalogo_Indicador" Association="Self.FK_Catalogo_Indicador">
+            <End Role="TB_Catalogo" EntitySet="TB_Catalogo" />
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estado_Indicador" Association="Self.FK_Estado_Indicador">
+            <End Role="TB_Estado" EntitySet="TB_Estado" />
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Indicador_IndicadorPosvalor" Association="Self.FK_Indicador_IndicadorPosvalor">
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+            <End Role="TB_IndicadorPosvalor" EntitySet="TB_IndicadorPosvalor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Periodo_Indicador" Association="Self.FK_Periodo_Indicador">
+            <End Role="TB_Periodo" EntitySet="TB_Periodo" />
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posvalor_IndicadorPosvalor" Association="Self.FK_Posvalor_IndicadorPosvalor">
+            <End Role="TB_Posvalor" EntitySet="TB_Posvalor" />
+            <End Role="TB_IndicadorPosvalor" EntitySet="TB_IndicadorPosvalor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posvalor_Metadata" Association="Self.FK_Posvalor_Metadata">
+            <End Role="TB_Metadata" EntitySet="TB_Metadata" />
+            <End Role="TB_Posvalor" EntitySet="TB_Posvalor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unidad_Indicador" Association="Self.FK_Unidad_Indicador">
+            <End Role="TB_UnidadMedida" EntitySet="TB_UnidadMedida" />
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_IndicadoresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TB_Catalogo">
+          <Key>
+            <PropertyRef Name="IdCatalogo" />
+          </Key>
+          <Property Name="IdCatalogo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prefijo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TB_Indicador" Relationship="Self.FK_Catalogo_Indicador" FromRole="TB_Catalogo" ToRole="TB_Indicador" />
+        </EntityType>
+        <EntityType Name="TB_Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sigla" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TB_Indicador" Relationship="Self.FK_Estado_Indicador" FromRole="TB_Estado" ToRole="TB_Indicador" />
+        </EntityType>
+        <EntityType Name="TB_Indicador">
+          <Key>
+            <PropertyRef Name="IdIndicador" />
+          </Key>
+          <Property Name="IdIndicador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCatalogo" Type="Int32" Nullable="false" />
+          <Property Name="IdUnidad" Type="Int32" Nullable="false" />
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TB_Catalogo" Relationship="Self.FK_Catalogo_Indicador" FromRole="TB_Indicador" ToRole="TB_Catalogo" />
+          <NavigationProperty Name="TB_Estado" Relationship="Self.FK_Estado_Indicador" FromRole="TB_Indicador" ToRole="TB_Estado" />
+          <NavigationProperty Name="TB_IndicadorPosvalor" Relationship="Self.FK_Indicador_IndicadorPosvalor" FromRole="TB_Indicador" ToRole="TB_IndicadorPosvalor" />
+          <NavigationProperty Name="TB_Periodo" Relationship="Self.FK_Periodo_Indicador" FromRole="TB_Indicador" ToRole="TB_Periodo" />
+          <NavigationProperty Name="TB_UnidadMedida" Relationship="Self.FK_Unidad_Indicador" FromRole="TB_Indicador" ToRole="TB_UnidadMedida" />
+        </EntityType>
+        <EntityType Name="TB_IndicadorPosvalor">
+          <Key>
+            <PropertyRef Name="IdIndiPos" />
+          </Key>
+          <Property Name="IdIndiPos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdIndicador" Type="Int32" Nullable="false" />
+          <Property Name="IdPosvalor" Type="Int32" Nullable="false" />
+          <Property Name="Orden" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TB_Indicador" Relationship="Self.FK_Indicador_IndicadorPosvalor" FromRole="TB_IndicadorPosvalor" ToRole="TB_Indicador" />
+          <NavigationProperty Name="TB_Posvalor" Relationship="Self.FK_Posvalor_IndicadorPosvalor" FromRole="TB_IndicadorPosvalor" ToRole="TB_Posvalor" />
+        </EntityType>
+        <EntityType Name="TB_Metadata">
+          <Key>
+            <PropertyRef Name="IdMetadata" />
+          </Key>
+          <Property Name="IdMetadata" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prefijo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TB_Posvalor" Relationship="Self.FK_Posvalor_Metadata" FromRole="TB_Metadata" ToRole="TB_Posvalor" />
+        </EntityType>
+        <EntityType Name="TB_Periodo">
+          <Key>
+            <PropertyRef Name="IdPeriodo" />
+          </Key>
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Siglas" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TB_Indicador" Relationship="Self.FK_Periodo_Indicador" FromRole="TB_Periodo" ToRole="TB_Indicador" />
+        </EntityType>
+        <EntityType Name="TB_Posvalor">
+          <Key>
+            <PropertyRef Name="IdPosvalor" />
+          </Key>
+          <Property Name="IdPosvalor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Valor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdMetadata" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TB_IndicadorPosvalor" Relationship="Self.FK_Posvalor_IndicadorPosvalor" FromRole="TB_Posvalor" ToRole="TB_IndicadorPosvalor" />
+          <NavigationProperty Name="TB_Metadata" Relationship="Self.FK_Posvalor_Metadata" FromRole="TB_Posvalor" ToRole="TB_Metadata" />
+        </EntityType>
+        <EntityType Name="TB_UnidadMedida">
+          <Key>
+            <PropertyRef Name="IdUnidad" />
+          </Key>
+          <Property Name="IdUnidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Siglas" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TB_Indicador" Relationship="Self.FK_Unidad_Indicador" FromRole="TB_UnidadMedida" ToRole="TB_Indicador" />
+        </EntityType>
+        <EntityType Name="V_SelectIndicadores">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Prefijo" />
+            <PropertyRef Name="Estado" />
+            <PropertyRef Name="Periodo" />
+            <PropertyRef Name="Moneda" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Prefijo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Periodo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Moneda" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="V_SelectMetadata">
+          <Key>
+            <PropertyRef Name="Indicador" />
+            <PropertyRef Name="Metadata" />
+            <PropertyRef Name="Posvalor" />
+          </Key>
+          <Property Name="Indicador" Type="Int32" Nullable="false" />
+          <Property Name="Metadata" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Posvalor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Catalogo_Indicador">
+          <End Role="TB_Catalogo" Type="Self.TB_Catalogo" Multiplicity="1" />
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Catalogo">
+              <PropertyRef Name="IdCatalogo" />
+            </Principal>
+            <Dependent Role="TB_Indicador">
+              <PropertyRef Name="IdCatalogo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estado_Indicador">
+          <End Role="TB_Estado" Type="Self.TB_Estado" Multiplicity="1" />
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="TB_Indicador">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Indicador_IndicadorPosvalor">
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="1" />
+          <End Role="TB_IndicadorPosvalor" Type="Self.TB_IndicadorPosvalor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Indicador">
+              <PropertyRef Name="IdIndicador" />
+            </Principal>
+            <Dependent Role="TB_IndicadorPosvalor">
+              <PropertyRef Name="IdIndicador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Periodo_Indicador">
+          <End Role="TB_Periodo" Type="Self.TB_Periodo" Multiplicity="1" />
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Periodo">
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="TB_Indicador">
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unidad_Indicador">
+          <End Role="TB_UnidadMedida" Type="Self.TB_UnidadMedida" Multiplicity="1" />
+          <End Role="TB_Indicador" Type="Self.TB_Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_UnidadMedida">
+              <PropertyRef Name="IdUnidad" />
+            </Principal>
+            <Dependent Role="TB_Indicador">
+              <PropertyRef Name="IdUnidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posvalor_IndicadorPosvalor">
+          <End Role="TB_Posvalor" Type="Self.TB_Posvalor" Multiplicity="1" />
+          <End Role="TB_IndicadorPosvalor" Type="Self.TB_IndicadorPosvalor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Posvalor">
+              <PropertyRef Name="IdPosvalor" />
+            </Principal>
+            <Dependent Role="TB_IndicadorPosvalor">
+              <PropertyRef Name="IdPosvalor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posvalor_Metadata">
+          <End Role="TB_Metadata" Type="Self.TB_Metadata" Multiplicity="1" />
+          <End Role="TB_Posvalor" Type="Self.TB_Posvalor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_Metadata">
+              <PropertyRef Name="IdMetadata" />
+            </Principal>
+            <Dependent Role="TB_Posvalor">
+              <PropertyRef Name="IdMetadata" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_Indicadores" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TB_Catalogo" EntityType="Self.TB_Catalogo" />
+          <EntitySet Name="TB_Estado" EntityType="Self.TB_Estado" />
+          <EntitySet Name="TB_Indicador" EntityType="Self.TB_Indicador" />
+          <EntitySet Name="TB_IndicadorPosvalor" EntityType="Self.TB_IndicadorPosvalor" />
+          <EntitySet Name="TB_Metadata" EntityType="Self.TB_Metadata" />
+          <EntitySet Name="TB_Periodo" EntityType="Self.TB_Periodo" />
+          <EntitySet Name="TB_Posvalor" EntityType="Self.TB_Posvalor" />
+          <EntitySet Name="TB_UnidadMedida" EntityType="Self.TB_UnidadMedida" />
+          <EntitySet Name="V_SelectIndicadores" EntityType="Self.V_SelectIndicadores" />
+          <EntitySet Name="V_SelectMetadata" EntityType="Self.V_SelectMetadata" />
+          <AssociationSet Name="FK_Catalogo_Indicador" Association="Self.FK_Catalogo_Indicador">
+            <End Role="TB_Catalogo" EntitySet="TB_Catalogo" />
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estado_Indicador" Association="Self.FK_Estado_Indicador">
+            <End Role="TB_Estado" EntitySet="TB_Estado" />
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Indicador_IndicadorPosvalor" Association="Self.FK_Indicador_IndicadorPosvalor">
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+            <End Role="TB_IndicadorPosvalor" EntitySet="TB_IndicadorPosvalor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Periodo_Indicador" Association="Self.FK_Periodo_Indicador">
+            <End Role="TB_Periodo" EntitySet="TB_Periodo" />
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unidad_Indicador" Association="Self.FK_Unidad_Indicador">
+            <End Role="TB_UnidadMedida" EntitySet="TB_UnidadMedida" />
+            <End Role="TB_Indicador" EntitySet="TB_Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posvalor_IndicadorPosvalor" Association="Self.FK_Posvalor_IndicadorPosvalor">
+            <End Role="TB_Posvalor" EntitySet="TB_Posvalor" />
+            <End Role="TB_IndicadorPosvalor" EntitySet="TB_IndicadorPosvalor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posvalor_Metadata" Association="Self.FK_Posvalor_Metadata">
+            <End Role="TB_Metadata" EntitySet="TB_Metadata" />
+            <End Role="TB_Posvalor" EntitySet="TB_Posvalor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_IndicadoresModelStoreContainer" CdmEntityContainer="BD_Indicadores">
+          <EntitySetMapping Name="TB_Catalogo">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.TB_Catalogo">
+              <MappingFragment StoreEntitySet="TB_Catalogo">
+                <ScalarProperty Name="IdCatalogo" ColumnName="IdCatalogo" />
+                <ScalarProperty Name="Prefijo" ColumnName="Prefijo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_Estado">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.TB_Estado">
+              <MappingFragment StoreEntitySet="TB_Estado">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Sigla" ColumnName="Sigla" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_Indicador">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.TB_Indicador">
+              <MappingFragment StoreEntitySet="TB_Indicador">
+                <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+                <ScalarProperty Name="IdCatalogo" ColumnName="IdCatalogo" />
+                <ScalarProperty Name="IdUnidad" ColumnName="IdUnidad" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_IndicadorPosvalor">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.TB_IndicadorPosvalor">
+              <MappingFragment StoreEntitySet="TB_IndicadorPosvalor">
+                <ScalarProperty Name="IdIndiPos" ColumnName="IdIndiPos" />
+                <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+                <ScalarProperty Name="IdPosvalor" ColumnName="IdPosvalor" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_Metadata">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.TB_Metadata">
+              <MappingFragment StoreEntitySet="TB_Metadata">
+                <ScalarProperty Name="IdMetadata" ColumnName="IdMetadata" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Prefijo" ColumnName="Prefijo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_Periodo">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.TB_Periodo">
+              <MappingFragment StoreEntitySet="TB_Periodo">
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="Siglas" ColumnName="Siglas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_Posvalor">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.TB_Posvalor">
+              <MappingFragment StoreEntitySet="TB_Posvalor">
+                <ScalarProperty Name="IdPosvalor" ColumnName="IdPosvalor" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdMetadata" ColumnName="IdMetadata" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_UnidadMedida">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.TB_UnidadMedida">
+              <MappingFragment StoreEntitySet="TB_UnidadMedida">
+                <ScalarProperty Name="IdUnidad" ColumnName="IdUnidad" />
+                <ScalarProperty Name="Siglas" ColumnName="Siglas" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_SelectIndicadores">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.V_SelectIndicadores">
+              <MappingFragment StoreEntitySet="V_SelectIndicadores">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Prefijo" ColumnName="Prefijo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+                <ScalarProperty Name="Moneda" ColumnName="Moneda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_SelectMetadata">
+            <EntityTypeMapping TypeName="BD_IndicadoresModel.V_SelectMetadata">
+              <MappingFragment StoreEntitySet="V_SelectMetadata">
+                <ScalarProperty Name="Indicador" ColumnName="Indicador" />
+                <ScalarProperty Name="Metadata" ColumnName="Metadata" />
+                <ScalarProperty Name="Posvalor" ColumnName="Posvalor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

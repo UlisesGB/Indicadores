@@ -1,0 +1,40 @@
+﻿@using GridMvc.Html
+@using Proyecto_Indicadores.Models;
+@model List<TablaIndicador> 
+
+@{
+    ViewBag.Title = "Indicadores";
+    Layout = "~/Views/Shared/_IndicadoresLayout.cshtml";
+}
+
+
+<h1 class="Titulos">Registros: @ViewBag.Title</h1>
+
+<div class="container-fluid row justify-content-center">
+    <div class="col">
+        
+        <div>
+            <nav class="navbar navbar-light" style="margin-left:-2%">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">@Html.ActionLink("Crear Nuevo", "CrearIndicador")</li>
+                    <li class="nav-item" style="padding-left: 30px">@Html.ActionLink("Exportar", "ExportarExcel", null, null)</li>
+                </ul>
+            </nav>
+        </div>
+
+        @Html.Grid(Model).Columns(Columns =>
+   {
+       Columns.Add(c => c.IdIndicador).Titled("IdIndicador").Filterable(true);
+       Columns.Add(c => c.Catalogo).Titled("C.Catalogo").Filterable(true);
+       Columns.Add(c => c.Estado).Titled("Estado").Filterable(true);
+       Columns.Add(c => c.Perido).Titled("Periodo").Filterable(true);
+       Columns.Add(c => c.Moneda).Titled("Unidad Medida").Filterable(true);
+       Columns.Add(c => c.Metadata).Titled("Metadata").Filterable(true);
+       Columns.Add()
+           .Encoded(false)
+           .Sanitized(false)
+           .RenderValueAs(o => Html.ActionLink("Eliminar", "EliminarIndicador", "Indicador", new { idIndicador = o.
+        IdIndicador }, null));
+   }).WithPaging(5).Sortable(true)
+    </div>
+</div>
